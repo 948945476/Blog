@@ -1,0 +1,60 @@
+{% extends 'basemain.html' %}
+{% load blog_tags %}
+{% block basemain %}
+
+				<div class="row">
+					<main class="col-md-8">
+						{% block main %}
+						{% endblock main %}
+					</main>
+					<aside class="col-md-4">
+						<div class="widget widget-recent-posts">		
+							<h3 class="widget-title">最新文章</h3>		
+							<ul>
+								{% get_recent_posts as recent_post_list %}
+								{% for post in recent_post_list %}
+								<li>
+									<a href="{{ post.get_absolute_url }}">
+										<span class="fa fa-chevron-circle-right fa-lg">
+											&nbsp;{{ post.title }}
+										</span>
+									</a>
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+						<div class="widget widget-archives">		
+							<h3 class="widget-title">时间归档</h3>		
+							<ul>
+								{% archives as date_list %}
+								{% for date in date_list %}
+								<li>
+									<i class="fa-li fa fa-check-square"></i>
+									<a href="{% url 'blog:archives' date.year date.month %}">
+										<span class="fa fa-clock-o fa-lg">
+											&nbsp;{{ date.year }}年{{ date.month }}月&nbsp;
+										</span>
+									</a>
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+
+						<div class="widget widget-category">		
+							<h3 class="widget-title">文章分类</h3>		
+							<ul>
+								{% get_categories as categors %}
+								{% for ca in categors %}
+								<li>
+									<a href="{% url 'blog:category' ca.pk %}">
+										<span class="fa fa-tag fa-lg">
+											&nbsp;{{ ca.name }}&nbsp;({{ca.num_post}})
+										</span>
+									</a>
+								</li>
+								{% endfor %}
+						</div>
+					</aside>
+				</div>
+
+{% endblock basemain %}
