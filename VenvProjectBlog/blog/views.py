@@ -54,13 +54,16 @@ def search(request):
 
 	post_list = Posts.objects.filter(title__icontains=q)
 	if len(post_list) == 0:
-		error_msg = "没有与之匹配的关键字"
+		context = {
+		'error_msg':"查询失败，该条件下没有查询结果",
+		'text_css':"danger",
+		'post_list':post_list,
+		}
 	else:
-		error_msg = "搜索成功"
-
-	context = {
-	'error_msg':error_msg,
-	'post_list':post_list,
-	}
+		context = {
+		'error_msg':"查询成功，该条件下查询结果如下",
+		'text_css':"success",
+		'post_list':post_list,
+		}
 	return render(request, 'blog/index.html', context=context)
 

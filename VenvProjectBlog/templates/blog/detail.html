@@ -1,71 +1,98 @@
 {% extends 'base.html' %}
 {% block main %}
 
-<article class="post post-1">
-<header class="entry-header">
-		<h1 class="entry-title">{{ post.title }}</h1>
-	<div class="entry-meta">
-		<span class="post-category">
-			<a href="#">{{ post.category.name }}</a>
-		</span>
-		<span class="post-date">
-			<a href="#">
-				<time class="entry-date" datetime="{{ post.created_time }}">{{ post.created_time }}</time>
-			</a>
-		</span>
-		<span class="post-author">
-			<a href="#">{{ post.author }}</a>
-		</span>
-		<span class="comments-link">
-			<a href="#">4 Comments</a>
-		</span>
-	</div>
-</header>
-	<div class="entry-content clearfix">
-		{{ post.body|safe }}
-	</div>
-</article>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3 col-sm-2 col-xs-0">
+		</div>
+		<div class="col-md-8 col-sm-9 col-xs-12">
+			<div class="page-header">
+  				<h2>{{ post.title }} <small></small></h2>
+			</div>
+			<p>
+				<span class="fa fa-user fa-fw"></span>{{post.author}}&nbsp;&nbsp;&nbsp;<span class="fa fa-clock-o fa-fw"></span>{{post.created_time}}&nbsp;&nbsp;&nbsp;<span class="fa fa-tags fa-fw"></span>{{ post.category.name }}
+			</p>
+			<div class="panel">
+	  			<div class="panel-body">
+	  				{{ post.body|safe }}
+	  			</div>
+	  			<div class="panel-footer">
+	  				<p>
+		  				<strong>最近修改:{{ post.modified_time }}</strong>&nbsp;&nbsp;&nbsp;有帮助:
+		  				<a href="#" title="有帮助"><span class="fa fa-thumbs-o-up">(1)</span></a><br />
+		  				分享到:<a href="#" title="微博"><span class="fa fa-weibo text-danger">微博</span></a>&nbsp;&nbsp;<a href="#" title="微信"><span class="fa fa-weixin text-success">微信</span></a>
+	  				</p>
+	  			</div>
+			</div>
+			<hr />
+			<div class="panel panel-primary">
+				<div class="panel-heading"><h3>留下你的小想法( • ̀ω•́ )✧</h3></div>
+				<form class="form-horizontal" action="{% url 'comments:post_comment' post.pk %}" method="post">
+				<div class="panel-body">
+						{% csrf_token %}
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="{{ form.name.id_for_label }}">名字</label>
+							<div class="col-sm-10">
+					      		<input class="form-control" id="id_name" maxlength="100" name="name" placeholder="名字" type="text" required="">
+					      		{{ form.name.errors }}
+					      	</div>
+					    </div>
+					    <div class="form-group">
+					      	<label class="col-sm-2 control-label" for="{{ form.email.id_for_label }}">邮箱</label>
+					      	<div class="col-sm-10">
+						      	<input class="form-control" id="id_email" maxlength="255" name="email" placeholder="邮箱" type="text" required="">
+						      	{{ form.name.errors }}
+					      	</div>
+					    </div>
+					    <div class="form-group">
+					      	<label class="col-sm-2 control-label" for="{{ form.text.id_for_label }}">评论</label>
+					      	<div class="col-sm-10">
+						      	<textarea class="form-control" cols="40" id="id_text" name="text" rows="3" required=""></textarea>
+						      	{{ form.text.errors }}
+						    </div>
+						</div>
+  						<div class="form-group">
+  							<label class="col-sm-2 control-label" >提交</label>
+    						<div class="col-sm-10">
+      							<button type="submit"><span>(=ﾟωﾟ)ﾉ</span></button>
+    						</div>
+  						</div>
+  					</div>
+  				</form>
+			</div>
+			<hr />
+			<div class="panel panel-default">
+  				<!-- Default panel contents -->
+			  <div class="panel-heading">小想法们</div>
+			  <div class="panel-body">
+			    <p>感谢每一个评论过的人Thanks♪(･ω･)ﾉ</p>
+			  </div>
 
-<section class="comment-area">
-	<h2>留下你的评论</h2>
-	<form action="{% url 'comments:post_comment' post.pk %}" method="post" class="comment-form">
-		{% csrf_token %}
-		<div class="row">
-			<div class="col-md-4">
-				<label for="{{ form.name.id_for_label }}">Name:</label>
-      				{{ form.name }}
-      				{{ form.name.errors }}
-    		</div>
-    		<div class="col-md-8">
-      			<label for="{{ form.email.id_for_label }}">Email:</label>
-      				{{ form.email }}
-      				{{ form.name.errors }}
-    		</div>
-    		<div class="col-md-12">
-      			<label for="{{ form.text.id_for_label }}">Comment:</label>
-      				{{ form.text }}
-      				{{ form.text.errors }}
-      			<button type="submit"><span>发表</span></button>
-    		</div>
-  		</div>    <!-- row -->
-	</form>
-	<div class="comment-list">
-		<h2>评论列表</h2>
-		<ul class="list-unstyled">
-			{% for comment in comment_list %}
-			<li class="comment-item">
-				<span class="name">{{ comment.name }}</span>
-				<time class="date">{{ comment.created_time }}</time>
-				<div class="text">
-					{{ comment.text }}
-				</div>
-			</li>
-			{% empty %}
-			<li>
-				暂无评论
-			</li>
-			{% endfor %}
-		</ul>
+			  <!-- List group -->
+			  <ul class="list-group">
+			  	{% for comment in comment_list %}
+			    <li class="list-group-item">
+			    	<div class="panel panel-default">
+			    		<div class="panel-body">
+			    			<p>{{ comment.text }}</p>
+			    		</div>
+				    	<div class="panel-footer">
+				    		<p>
+				    			<span class="fa fa-user-secret fa-fw"></span>{{ comment.name }}&nbsp;&nbsp;<span class="fa fa-clock-o fa-fw"></span>{{ comment.created_time }}
+				    		</p>
+				    	</div>
+			  		</div>
+			    </li>
+			    {% empty %}
+			    <li>
+				暂无评论(*/ω＼*)
+				</li>
+				{% endfor %}
+			  </ul>
+			</div>
+		</div>
+		<div class="col-md-1 col-sm-1 col-xs-0">
+		</div>
 	</div>
-</section>
+</div>
 {% endblock main %}

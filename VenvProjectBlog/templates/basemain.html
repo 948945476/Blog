@@ -8,113 +8,89 @@
 		<!-- meta -->
 		<meta charset="UTF-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	    <!-- css -->
-		<link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
-		<link rel="stylesheet" href="{% static 'blog/css/pace.css' %}">
-	    <link rel="stylesheet" href="{% static 'blog/css/custom.css' %}">
-	    <link rel="stylesheet" href="{% static 'blog/css/font-awesome.min.css' %}">
+	    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 	    <!-- js -->
+	    <script src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
 	    <script src="{% static 'blog/js/jquery-2.1.3.min.js' %}"></script>
-	    <script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
-	    <script src="{% static 'blog/js/pace.min.js' %}"></script>
-	    <script src="{% static 'blog/js/modernizr.custom.js' %}"></script>
+	    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	</head>
-	<body style="padding-top: 50px">
-		<div class="container">	
-			<header id="site-header">
-				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-  							<div class="container">
-  								<p style="font-family:Arial;font-size: 25px" class="navbar-text navbar-left">Life is short,you need Python!<i class="fa fa-sun-o"></i></p>
-  								<p class="navbar-text navbar-right"><a href="#" class="navbar-link">Hank</a> 's Blog&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="navbar-link"><i class="fa fa-hand-o-up fa-lg"></i>返回顶部</a></p>
-  							</div>
-						</nav>
-						<nav class="main-nav" style='text-align：center' role="navigation">
-
-							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
-  								<ul class="nav navbar-nav" style="text-align: center">
-    								<li class="cl-effect-11">
-    									<i class="fa fa-home fa-3x"><a href="{% url 'blog:index' %}" title="主页">Home</a></i>
-    								</li>
-    								<li class="cl-effect-11">
-    									<i class="fa fa-book fa-3x">
-    									<a href="#" title="博客"><span>Blog</span></a></i>
-    								</li>
-    								<li class="cl-effect-11">
-    									<i class="fa fa-soccer-ball-o fa-3x"><a href="#" title="小游戏">Game</a></i>
-    									
-    								</li>
-    								<li class="cl-effect-11">
-    									<i class="fa fa-user-circle-o fa-3x"><a href="#" title="关于作者">About</a></i>
-    								</li>
-    								<li class="cl-effect-11">
-    									<i class="fa fa-search fa-3x"><a  href="#" title="站内搜索,未完成" data-toggle="modal" data-target="#myModal">Search</a></i>
-    									<!--增加模态窗口-->
-    								</li>
-  								</ul>
-							</div><!-- /.navbar-collapse -->
-						</nav>
-					</div>
-					</div><!-- col-md-8 -->
+	<body>
+		<header id="site-header">
+			<nav class="navbar navbar-default navbar-static-top" role="navigation">
+				<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="col-md-2 col-sm-0 col-xs-0">
+								</div>
+								<div class="col-md-2 col-sm-4 col-xs-0 hidden-xs">
+			  						<p class="navbar-text" style="text-align: center">
+			  							<a href="#" class="navbar-link" style="color:blue">Hank</a> 
+			  							's Blog&nbsp;&nbsp;&nbsp;&nbsp;
+										<a href="#" title="站内搜索,未完成" data-toggle="modal" data-target="#myModal">
+											<i class="fa fa-search fa-lg"></i>
+										</a>
+									</p>
+								</div>
+								<div class="col-md-8 col-sm-8 col-xs-12">
+			  						<ul class="nav nav-pills">
+			  							<li role="presentation"><a href="{% url 'blog:index' %}" title="主页"><i class="fa fa-home fa-lg"></i>Home</a></li>
+			  							<li role="presentation"><a href="#" title="博客"><span><class="fa fa-book fa-lg"></i>Blog</span></a></li>
+			  							<li role="presentation"><a href="#" title="小游戏"><i class="fa fa-soccer-ball-o fa-lg"></i>Game</a></li>
+			  							<li role="presentation"><a href="#" title="关于作者"><i class="fa fa-user-circle-o fa-lg"></i>About</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
 				</div>
-
+			</nav>
+		</header>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  		<div class="modal-dialog" role="document">
+	    		<div class="modal-content">
+	      			<div class="modal-header">
+	       				 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	       				 	<span aria-hidden="true">&times;</span>
+	       				 </button>
+	        			<h4 class="modal-title" id="myModalLabel">站内检索</h4>
+	      			</div>
+	      			<div class="modal-body">
+	        			<form role="search" method="get" action="{% url 'blog:search' %}">
+	        				<div class="input-group">
+	          				<input type="text" class="form-control" name="q" placeholder="请输入关键字">
+	          				<span class="input-group-btn">
+	        					<button class="btn btn-default" type="submit">Go!</button>
+	      					</span>
+	      					</div>
+	       				</form>
+	      			</div>
+	      			<div class="modal-footer">
+	      				<p><i class="fa fa-warning fa-lg">该搜索功能有待完善</i><p>
+	      			</div>
+	    		</div>
+	  		</div>
 		</div>
-
 		<div class="content-body">
-			<div class="container">
-				{% block basemain %}
-				{% endblock basemain %}
+			<div class="container-fluid">
+			{% block basemain %}
+			{% endblock basemain %}
 			</div>
 		</div>
 		<footer id="site-footer">
+			<hr />
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12">
-						<p class="copyright">&copy; 2014 ThemeWagon.com -More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - <a href="/admin" title="后台" target="_blank"><span class=" fa fa-user-circle fa-lg"></span></a></p>
+					<div class="col-md-4 col-sm-2 col-xs-0"></div>
+					<div class="col-md-4 col-sm-8 col-xs-12">
+						<p style="text-align: center"> 人生苦短，我用Python---- <a href="/admin" title="后台" target="_blank"><span class=" fa fa-user-circle fa-lg"></span>后台管理</a></p>
 					</div>
+					<div class="col-md-4 col-sm-2 col-xs-0"></div>
 				</div>
 			</div>
 		</footer>
-
-		<!-- Mobile Menu -->
-		<div class="overlay overlay-hugeinc">
-			<button type="button" class="btn btn-default">
-				<span class="glyphicon glyphicon-align-left"></span>
-			</button>
-			<nav>
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="full-width.html">Blog</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-			</nav>
-		</div>
-		<script src="{% static 'blog/js/script.js' %}"></script>
- 	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  		<div class="modal-dialog" role="document">
-    		<div class="modal-content">
-      			<div class="modal-header">
-       				 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        			<h4 class="modal-title" id="myModalLabel">站内检索</h4>
-      			</div>
-      			<div class="modal-body">
-        			<form role="search" method="get" action="{% url 'blog:search' %}">
-        				<div class="input-group">
-          				<input type="text" class="form-control" name="q" placeholder="请输入关键字">
-          				<span class="input-group-btn">
-        					<button class="btn btn-default" type="submit">Go!</button>
-      					</span>
-      					</div>
-       				</form>
-      			</div>
-      			<div class="modal-footer">
-      				<p><i class="fa fa-warning fa-lg">该搜索功能有待完善</i><p>
-      			</div>
-    		</div>
-  		</div>
-	</div>
 	</body>
 </html>
