@@ -40,10 +40,9 @@
 								</div>
 								<div class="col-md-8 col-sm-8 col-xs-12">
 			  						<ul class="nav nav-pills">
-			  							<li role="presentation"><a href="" title="主页"><i class="fa fa-home fa-lg"></i>Home</a></li>
-			  							<li role="presentation"><a href="{% url 'blog:index' %}" title="博客"><span><class="fa fa-book fa-lg"></i>Blog</span></a></li>
-			  							<li role="presentation"><a href="#" title="小游戏"><i class="fa fa-soccer-ball-o fa-lg"></i>Game</a></li>
-			  							<li role="presentation"><a href="#" title="关于作者"><i class="fa fa-user-circle-o fa-lg"></i>About</a></li>
+			  							<li role="presentation"><a href="{% url 'mainpage:pagetxt' %}" title="主页"><i class="fa fa-home fa-lg"></i>主页</a></li>
+			  							<li role="presentation"><a href="{% url 'blog:list' %}" title="博客"><span><class="fa fa-book fa-lg"></i>博客</span></a></li>
+			  							<li role="presentation"><a href="{% url 'mainpage:pageabout' %}" title="关于作者"><i class="fa fa-user-circle-o fa-lg"></i>关于</a></li>
 									</ul>
 								</div>
 							</div>

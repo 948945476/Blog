@@ -10,10 +10,10 @@ import markdown
 
 
 
-def  index(request):
+def  list(request):
 	# return HttpResponse('欢迎访问我的主页')
 	post_list = Posts.objects.all()
-	return render(request, 'blog/index.html',context={
+	return render(request, 'blog/list.html',context={
 			'post_list':post_list
 		})
 
@@ -36,19 +36,19 @@ def detail(request, pk):
 
 def archives(request, year, month):
 	post_list = Posts.objects.filter(created_time__year=year, created_time__month=month)
-	return render(request, 'blog/index.html', context={'post_list':post_list})
+	return render(request, 'blog/list.html', context={'post_list':post_list})
 
 def category(request, pk):
 	cate = get_object_or_404(Category, pk=pk)
 	post_list = Posts.objects.filter(category=cate)
-	return render(request, 'blog/index.html', context={'post_list':post_list})
+	return render(request, 'blog/list.html', context={'post_list':post_list})
 
 def search(request):
 	q = request.GET.get('q')
 	error_msg = ''
 	if not q:
 		error_msg = "输入搜索数据为空"
-		return render(request, 'blog/index.html', context={'error_msg':error_msg})
+		return render(request, 'blog/list.html', context={'error_msg':error_msg})
 
 	post_list = Posts.objects.filter(title__icontains=q)
 	if len(post_list) == 0:
@@ -63,5 +63,5 @@ def search(request):
 		'text_css':"success",
 		'post_list':post_list,
 		}
-	return render(request, 'blog/index.html', context=context)
+	return render(request, 'blog/list.html', context=context)
 

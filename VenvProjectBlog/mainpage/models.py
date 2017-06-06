@@ -13,6 +13,10 @@ class mainpage(models.Model):
 	author = models.ForeignKey(User) 
 	def __str__(self):
 		return self.title
-
 	class Meta:
 		ordering = ['-create_time',]
+
+class about(models.Model):
+	pictitle = models.CharField(max_length=50)
+	pictxt = models.TextField()
+	about = models.TextField()
