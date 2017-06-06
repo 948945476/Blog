@@ -38,7 +38,7 @@ class Posts(models.Model):
 	category = models.ForeignKey(Category)
 	tags = models.ManyToManyField(Tag, blank=True)
 	author = models.ForeignKey(User)
-
+	showNum = models.BigIntegerField(default=0)
 	def __str__(self):
 		return self.title
 

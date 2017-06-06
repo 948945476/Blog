@@ -23,6 +23,8 @@ def detail(request, pk):
 		'markdown.extensions.extra', 
 		'markdown.extensions.codehilite', 
 		'markdown.extensions.toc'])
+	post.showNum +=1
+	post.save()
 
 	form = CommentForm()
 	comment_list = post.comment_set.all()
