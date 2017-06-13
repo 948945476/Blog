@@ -6,8 +6,8 @@ from django.http import HttpResponse
 from .models import Posts, Category
 from django.shortcuts import get_object_or_404
 from comments.forms import CommentForm
-import markdown
 
+import markdown
 
 
 def  list(request):
@@ -19,12 +19,15 @@ def  list(request):
 
 def detail(request, pk):
 	post = get_object_or_404(Posts, pk=pk)
-	post.body = markdown.markdown(post.body, extensions=[
+	md = markdown.Markdown(extensions=[
 		'markdown.extensions.extra', 
 		'markdown.extensions.codehilite', 
-		'markdown.extensions.toc'])
+		'markdown.extensions.toc',
+		])
 	post.showNum +=1
 	post.save()
+	post.body = md.convert(post.body)
+	#
 
 	form = CommentForm()
 	comment_list = post.comment_set.all()
@@ -32,6 +35,7 @@ def detail(request, pk):
 	'post':post,
 	'form':form,
 	'comment_list':comment_list,
+	'Toc':md.toc,
 	}
 
 	return render(request, 'blog/detail.html', context=context)
