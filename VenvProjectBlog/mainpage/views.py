@@ -15,7 +15,7 @@ def pagetxt(request):
 	return render(request, 'blog/main.html', context={'main':main})
 
 def pageabout(request):
-	main =get_object_or_404(about,pk=1)
+	main =get_object_or_404(about)
 	main.pictxt = markdown.markdown(main.pictxt, extensions=[
 		'markdown.extensions.extra',
 		'markdown.extensions.codehilite',

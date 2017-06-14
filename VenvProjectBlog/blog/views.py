@@ -6,25 +6,42 @@ from django.http import HttpResponse
 from .models import Posts, Category
 from django.shortcuts import get_object_or_404
 from comments.forms import CommentForm
-import markdown
+from django.utils.text import slugify
+from markdown.extensions.toc import TocExtension
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+import markdown
 
 
 def  list(request):
 	# return HttpResponse('欢迎访问我的主页')
 	post_list = Posts.objects.all()
+	#分页
+	ps = Paginator(post_list, 8)
+	pn = request.GET.get('page')
+	try:
+		post_list = ps.page(pn)
+	except PageNotAnInteger:
+		post_list = ps.page(1)
+	except EmptyPage:
+		post_list = ps.page(ps.num_pages())
+
 	return render(request, 'blog/list.html',context={
 			'post_list':post_list
 		})
 
 def detail(request, pk):
 	post = get_object_or_404(Posts, pk=pk)
-	post.body = markdown.markdown(post.body, extensions=[
+	md = markdown.Markdown(extensions=[
 		'markdown.extensions.extra', 
 		'markdown.extensions.codehilite', 
-		'markdown.extensions.toc'])
+		#'markdown.extensions.toc',
+		#锚点美化
+		TocExtension(slugify=slugify),
+		])
 	post.showNum +=1
 	post.save()
+	post.body = md.convert(post.body)
 
 	form = CommentForm()
 	comment_list = post.comment_set.all()
@@ -32,6 +49,7 @@ def detail(request, pk):
 	'post':post,
 	'form':form,
 	'comment_list':comment_list,
+	'Toc':md.toc,
 	}
 
 	return render(request, 'blog/detail.html', context=context)
